@@ -2,8 +2,79 @@ const { web3 } = window
 const selectedAddress = web3.eth.defaultAccount
 
 $(document).ready(function() {
-    const productRegistryContractAddress = '0x0Db33b813D9C129863C3e87C3450a2571441fD19';
+    const productRegistryContractAddress = '0x4b64D772c4017c62586D3fce35a64990aecbFD84';
     const productRegistryContractABI = [
+		{
+			"constant": true,
+			"inputs": [
+				{
+					"name": "_index",
+					"type": "uint256"
+				}
+			],
+			"name": "getProductStruct",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				},
+				{
+					"name": "",
+					"type": "string"
+				},
+				{
+					"name": "",
+					"type": "string"
+				},
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [],
+			"name": "killContract",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"name": "productes",
+			"outputs": [
+				{
+					"name": "number",
+					"type": "uint256"
+				},
+				{
+					"name": "productName",
+					"type": "string"
+				},
+				{
+					"name": "location",
+					"type": "string"
+				},
+				{
+					"name": "timestamp",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
 		{
 			"constant": false,
 			"inputs": [
@@ -27,19 +98,18 @@ $(document).ready(function() {
 			"type": "function"
 		},
 		{
-			"constant": false,
+			"constant": true,
 			"inputs": [],
-			"name": "killContract",
-			"outputs": [],
+			"name": "getNumOfProducts",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint8"
+				}
+			],
 			"payable": false,
-			"stateMutability": "nonpayable",
+			"stateMutability": "view",
 			"type": "function"
-		},
-		{
-			"inputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "constructor"
 		},
 		{
 			"constant": true,
@@ -74,80 +144,10 @@ $(document).ready(function() {
 			"type": "function"
 		},
 		{
-			"constant": true,
 			"inputs": [],
-			"name": "getNumOfProducts",
-			"outputs": [
-				{
-					"name": "",
-					"type": "uint8"
-				}
-			],
 			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [
-				{
-					"name": "_index",
-					"type": "uint256"
-				}
-			],
-			"name": "getProductStruct",
-			"outputs": [
-				{
-					"name": "",
-					"type": "uint256"
-				},
-				{
-					"name": "",
-					"type": "string"
-				},
-				{
-					"name": "",
-					"type": "string"
-				},
-				{
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [
-				{
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"name": "productes",
-			"outputs": [
-				{
-					"name": "number",
-					"type": "uint256"
-				},
-				{
-					"name": "productName",
-					"type": "string"
-				},
-				{
-					"name": "location",
-					"type": "string"
-				},
-				{
-					"name": "timestamp",
-					"type": "uint256"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
+			"stateMutability": "nonpayable",
+			"type": "constructor"
 		}
 	]
 
@@ -161,7 +161,7 @@ $(document).ready(function() {
 	
     $('#contractLink').text(productRegistryContractAddress);
     $('#contractLink').attr('href', 'https://ropsten.etherscan.io/address/' + productRegistryContractAddress);
-	    
+	    //스마트 컨트랙트 주소
     // Attach AJAX "loading" event listener
     $(document).on({
         ajaxStart: function() { $("#loadingBox").show() },
@@ -190,7 +190,7 @@ $(document).ready(function() {
         // $('#viewSubmitDocument>table').html( );
         // $('#viewSubmitDocument').show();
 
-		if (window.ethereum)
+		if (window.ethereum) //현재 메타마스크로 로그인이 되어 있느냐
 			try {
 				await window.ethereum.enable();
 			} catch (err) {
@@ -260,7 +260,7 @@ $(document).ready(function() {
  		$('#myTable').append(  '</table>' );
 
     }
-    
+    // 블록체인에 등록하는 과정
     async function itemUploadButton() {
         // if ($('#documentForUpload')[0].files.length == 0)
             // return showError("Please select a file to upload.");
@@ -274,7 +274,7 @@ $(document).ready(function() {
 		if (typeof web3 === 'undefined')
                 return showError("Please install MetaMask to access the Ethereum Web3 injected API from your Web browser.");
 			
-		let account = selectedAddress 
+		let account = selectedAddress //메타마스크 주소 가져옴
 		console.log("my account " , account);
 		
 		let howMany = $("#pronumber").val();
