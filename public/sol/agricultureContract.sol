@@ -20,7 +20,7 @@ contract agricultureContract {
     }
 
     function addProStru (uint _initNumber, string _firstString, string _secondString) public {
-        productes.push(myStruct(_initNumber,_firstString,_secondString, now)) -1;
+        productes.push(myStruct(_initNumber,_firstString,_secondString, now)) -1; //now : timestamp
         numberOfProducts++;
     }
 
