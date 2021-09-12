@@ -2,7 +2,7 @@ const { web3 } = window
 const selectedAddress = web3.eth.defaultAccount
 
 $(document).ready(function() {
-    const productRegistryContractAddress = '0x4b64D772c4017c62586D3fce35a64990aecbFD84';
+    const productRegistryContractAddress = '0xB91E34D40F6DC7e9d406A0b4105C57eaE381ae07';
     const productRegistryContractABI = [
 		{
 			"constant": true,
@@ -161,7 +161,7 @@ $(document).ready(function() {
 	
     $('#contractLink').text(productRegistryContractAddress);
     $('#contractLink').attr('href', 'https://ropsten.etherscan.io/address/' + productRegistryContractAddress);
-	    //스마트 컨트랙트 주소
+	    
     // Attach AJAX "loading" event listener
     $(document).on({
         ajaxStart: function() { $("#loadingBox").show() },
@@ -190,7 +190,7 @@ $(document).ready(function() {
         // $('#viewSubmitDocument>table').html( );
         // $('#viewSubmitDocument').show();
 
-		if (window.ethereum) //현재 메타마스크로 로그인이 되어 있느냐
+		if (window.ethereum)
 			try {
 				await window.ethereum.enable();
 			} catch (err) {
@@ -260,7 +260,7 @@ $(document).ready(function() {
  		$('#myTable').append(  '</table>' );
 
     }
-    // 블록체인에 등록하는 과정
+    
     async function itemUploadButton() {
         // if ($('#documentForUpload')[0].files.length == 0)
             // return showError("Please select a file to upload.");
@@ -274,7 +274,7 @@ $(document).ready(function() {
 		if (typeof web3 === 'undefined')
                 return showError("Please install MetaMask to access the Ethereum Web3 injected API from your Web browser.");
 			
-		let account = selectedAddress //메타마스크 주소 가져옴
+		let account = selectedAddress 
 		console.log("my account " , account);
 		
 		let howMany = $("#pronumber").val();
